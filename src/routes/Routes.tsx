@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import DashboardPage from "../pages/Dashboard/Dashboard.page";
 import LoginPage from "../pages/Login/Login.page";
+import CreateSimulationPage from "../pages/Simulation/CreateSimulation.page";
 import SimulationPage from "../pages/Simulation/Simulation.page";
 import PrivateRoute from "./PrivateRoute";
 const routes = [
@@ -14,6 +15,12 @@ const routes = [
   {
     path: "/simulation",
     component: SimulationPage,
+    private: true,
+    exact: true,
+  },
+  {
+    path: "/simulation/new",
+    component: CreateSimulationPage,
     private: true,
     exact: true,
   },

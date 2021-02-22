@@ -1,6 +1,8 @@
 import * as React from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import BaseLayout from "../../components/base/Layout/BaseLayout";
+import { PageWrapper } from "../../components/base/StyledComponents/PageWrapper";
 import SimulationCard from "../../components/SimulationCard/SimulationCard";
 import {
   SimulationModel,
@@ -18,6 +20,7 @@ const simulationMock: SimulationModel = {
 const SimulationPage: React.FunctionComponent<ISimulationPageProps> = (
   props
 ) => {
+  const history = useHistory();
   return (
     <BaseLayout>
       <div>
@@ -34,21 +37,15 @@ const SimulationPage: React.FunctionComponent<ISimulationPageProps> = (
             }}
           />
           <SimulationCardNew>
-            <div>+ New Simulation</div>
+            <div onClick={() => history.push("/simulation/new")}>
+              + New Simulation
+            </div>
           </SimulationCardNew>
         </PageWrapper>
       </div>
     </BaseLayout>
   );
 };
-
-const PageWrapper = styled.div`
-  padding: 30px;
-  margin: 10px;
-  background-color: #111;
-  display: flex;
-  flex-wrap: wrap;
-`;
 
 const SimulationCardNew = styled.div`
   width: 300px;
