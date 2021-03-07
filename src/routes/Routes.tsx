@@ -5,29 +5,38 @@ import LoginPage from "../pages/Login/Login.page";
 import CreateSimulationPage from "../pages/Simulation/CreateSimulation.page";
 import SimulationPage from "../pages/Simulation/Simulation.page";
 import PrivateRoute from "./PrivateRoute";
-const routes = [
+
+export const MainRoutes = [
   {
+    title: "Login",
     path: "/login",
     component: LoginPage,
     private: false,
     exact: true,
   },
   {
+    title: "Simulation",
     path: "/simulation",
     component: SimulationPage,
     private: true,
     exact: true,
   },
   {
+    title: "New Simulation",
     path: "/simulation/new",
     component: CreateSimulationPage,
     private: true,
     exact: true,
   },
+];
+
+const routes = [
+  ...MainRoutes,
   {
     path: "/",
     component: DashboardPage,
     private: true,
+    exact: true,
   },
 ];
 

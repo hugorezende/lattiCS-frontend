@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import BaseLayout from "../../components/base/Layout/BaseLayout";
@@ -8,45 +9,61 @@ import {
   SimulationModel,
   SimulationStatus,
 } from "../../models/Simulation/Simulation.model";
+import SimulationsService from "../../services/Simulations/Simulations.service";
 
 interface ISimulationPageProps {}
 
 const simulationMock: SimulationModel = {
   id: 1,
-  createdAt: new Date(),
-  percentage: 20,
-  status: SimulationStatus.ACTIVE,
+  createdDatetime: new Date(),
+  finishedPercentage: 20,
+  status: SimulationStatus.RUNNING,
+  owner: 1,
 };
 const SimulationPage: React.FunctionComponent<ISimulationPageProps> = (
   props
 ) => {
   const history = useHistory();
+  const [simulationList, setSimulationList] = useState([]);
+  useEffect(() => {
+    SimulationsService.list().then((res) => {
+      if (res.success) {
+        setSimulationList(res.data.simulations);
+      }
+    });
+  }, []);
+
   return (
     <BaseLayout>
       <div>
-        <h1>Simulations</h1>
         <PageWrapper>
-          <SimulationCard simulation={simulationMock} />
-          <SimulationCard simulation={simulationMock} />
-          <SimulationCard simulation={simulationMock} />
-          <SimulationCard
-            simulation={{
-              ...simulationMock,
-              percentage: 100,
-              status: SimulationStatus.FINISHED,
-            }}
-          />
-          <SimulationCardNew>
-            <div onClick={() => history.push("/simulation/new")}>
-              + New Simulation
-            </div>
-          </SimulationCardNew>
+          <h1>Active Simulations</h1>
+          <SimulationsWrapper>
+            {simulationList.map((simulation: any) => {
+              return (
+                <SimulationCard key={simulation.id} simulation={simulation} />
+              );
+            })}
+            <SimulationCard
+              simulation={{
+                ...simulationMock,
+                finishedPercentage: 65,
+                status: SimulationStatus.RUNNING,
+              }}
+            />
+            <SimulationCardNew onClick={() => history.push("/simulation/new")}>
+              <div>+ New Simulation</div>
+            </SimulationCardNew>
+          </SimulationsWrapper>
         </PageWrapper>
       </div>
     </BaseLayout>
   );
 };
-
+const SimulationsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
 const SimulationCardNew = styled.div`
   width: 300px;
   height: 150px;

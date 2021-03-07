@@ -7,6 +7,18 @@ html {
   font-weight: 400;
   background-color: #171717;
 }
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+}
+h2 {
+  font-size: 24px;
+  font-weight: 600;
+}
+h3 {
+  font-size: 20px;
+  font-weight: 600;
+}
 
 input {
   font-family: "Rubik", sans-serif;
@@ -14,4 +26,11 @@ input {
   padding: 8px 12px;
   border: none;
   border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+.form-group label {
+  padding: 0 5px;
 }

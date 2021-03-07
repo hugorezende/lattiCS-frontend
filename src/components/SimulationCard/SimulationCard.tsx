@@ -1,7 +1,10 @@
 import { Progress } from "antd";
 import * as React from "react";
 import styled from "styled-components";
-import { SimulationModel } from "../../models/Simulation/Simulation.model";
+import {
+  SimulationModel,
+  simulationStatusString,
+} from "../../models/Simulation/Simulation.model";
 
 interface ISimulationCardProps {
   simulation: SimulationModel;
@@ -15,14 +18,15 @@ const SimulationCard: React.FunctionComponent<ISimulationCardProps> = (
     <CardWrapper>
       <div className='title'>Simulation #{simulation.id}</div>
       <div className='status'>
-        {simulation.status} - {simulation.percentage}% done
+        {simulationStatusString[simulation.status]} -{" "}
+        {simulation.finishedPercentage}% done
       </div>
       <Progress
         strokeColor={{
           "0%": "#108ee9",
           "100%": "#87d068",
         }}
-        percent={simulation.percentage}
+        percent={simulation.finishedPercentage}
         status='active'
       />
     </CardWrapper>
