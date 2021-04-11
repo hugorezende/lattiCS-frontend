@@ -3,7 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 
-import logo from "../../assests/images/logo.png";
+import logo from "../../assets/images/logo.png";
 import AuthenticationService from "../../services/Auth/Auth.service";
 import TokenUtil from "../../utils/TokenUtils";
 import { useHistory } from "react-router-dom";
@@ -54,6 +54,10 @@ const LoginPage: React.FunctionComponent<ILoginPageProps> = (props) => {
               <img src={logo}></img>LattiCS
             </LogoWrapper>
             <h3>Login</h3>
+            <div style={{ fontStyle: "italic" }}>
+              <p>admin@admin.com</p>
+              <p>admin</p>
+            </div>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Form.Item
                 label='Username'

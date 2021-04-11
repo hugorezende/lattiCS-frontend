@@ -24,13 +24,29 @@ const SimulationPage: React.FunctionComponent<ISimulationPageProps> = (
   props
 ) => {
   const history = useHistory();
-  const [simulationList, setSimulationList] = useState([]);
+  const [simulationList, setSimulationList] = useState<SimulationModel[]>([]);
+  const [updatedSimulationList, setUpdatedSimulationList] = useState<
+    SimulationModel[]
+  >([]);
+
   useEffect(() => {
     SimulationsService.list().then((res) => {
       if (res.success) {
         setSimulationList(res.data.simulations);
       }
     });
+  }, []);
+
+  // Request updated list of simulations with new status
+  useEffect(() => {
+    const interval = setInterval(() => {
+      SimulationsService.list().then((res) => {
+        if (res.success) {
+          setUpdatedSimulationList(res.data.simulations);
+        }
+      });
+    }, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -41,16 +57,23 @@ const SimulationPage: React.FunctionComponent<ISimulationPageProps> = (
           <SimulationsWrapper>
             {simulationList.map((simulation: any) => {
               return (
-                <SimulationCard key={simulation.id} simulation={simulation} />
+                <SimulationCard
+                  key={simulation.id}
+                  simulation={
+                    updatedSimulationList.find(
+                      (sim) => sim.id === simulation.id
+                    ) || simulation
+                  }
+                />
               );
             })}
-            <SimulationCard
+            {/* <SimulationCard
               simulation={{
                 ...simulationMock,
                 finishedPercentage: 65,
                 status: SimulationStatus.RUNNING,
               }}
-            />
+            /> */}
             <SimulationCardNew onClick={() => history.push("/simulation/new")}>
               <div>+ New Simulation</div>
             </SimulationCardNew>

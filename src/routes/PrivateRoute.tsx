@@ -29,8 +29,11 @@ const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = (props) => {
 
   //   auth?.updateToken(30);
   const decodedToken: any = jwt.decode(TokenUtil.getToken());
-
-  if (decodedToken && decodedToken?.exp > new Date().getTime() / 1000) {
+  if (
+    decodedToken &&
+    (decodedToken.exp === undefined ||
+      decodedToken.exp > new Date().getTime() / 1000)
+  ) {
     //     // If No User is selected userSelection is required
     //     // (if userSelectedNotRequired was not sent, UserSelection is mandatory)
     //     const selectedUser = getUserId();

@@ -11,7 +11,7 @@ import * as React from "react";
 import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-import logo from "../../../assests/images/logo.png";
+import logo from "../../../assets/images/logo.png";
 import TokenUtil from "../../../utils/TokenUtils";
 interface ISideMenuProps {}
 

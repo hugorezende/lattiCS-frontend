@@ -3,6 +3,7 @@ import * as React from "react";
 import styled from "styled-components";
 import {
   SimulationModel,
+  SimulationStatus,
   simulationStatusString,
 } from "../../models/Simulation/Simulation.model";
 
@@ -18,8 +19,14 @@ const SimulationCard: React.FunctionComponent<ISimulationCardProps> = (
     <CardWrapper>
       <div className='title'>Simulation #{simulation.id}</div>
       <div className='status'>
-        {simulationStatusString[simulation.status]} -{" "}
-        {simulation.finishedPercentage}% done
+        {simulation.status === SimulationStatus.RUNNING &&
+          `${simulationStatusString[simulation.status]} ${
+            simulation.finishedPercentage
+          }% done`}
+        {simulation.status === SimulationStatus.SCHEDULED &&
+          `${simulationStatusString[simulation.status]}`}
+        {simulation.status === SimulationStatus.FINISHED &&
+          `${simulationStatusString[simulation.status]}`}
       </div>
       <Progress
         strokeColor={{
@@ -27,7 +34,7 @@ const SimulationCard: React.FunctionComponent<ISimulationCardProps> = (
           "100%": "#87d068",
         }}
         percent={simulation.finishedPercentage}
-        status='active'
+        status={simulation.finishedPercentage === 100 ? "success" : "active"}
       />
     </CardWrapper>
   );
