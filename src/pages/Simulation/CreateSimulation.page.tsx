@@ -1,4 +1,4 @@
-import { Button, message } from "antd";
+import { Button, Col, message, Row } from "antd";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
@@ -28,21 +28,31 @@ const CreateSimulationPage: React.FunctionComponent<ICreateSimulationPageProps> 
         <h1>Create New Simulation</h1>
         <PageWrapper>
           <form onSubmit={handleSubmit(createNewSimulation)}>
-            <div className='form-group'>
-              <label>
-                First parameter
-                <input type='text' name='param1' ref={register}></input>
-              </label>
-            </div>
-            <div className='form-group'>
-              <label>
-                Second parameter
-                <input type='text' name='param2' ref={register}></input>
-              </label>
-            </div>
-            <Button type='primary' htmlType='submit'>
-              Create New Simulation
-            </Button>
+            <Row>
+              <Col span={6}>
+                <div className='form-group'>
+                  <label>
+                    Simulation Title
+                    <input type='text' name='param1' ref={register}></input>
+                  </label>
+                </div>
+              </Col>
+              <Col span={6}>
+                <div className='form-group'>
+                  <label>
+                    Tag
+                    <input type='text' name='param2' ref={register}></input>
+                  </label>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <Button type='primary' htmlType='submit'>
+                  Create New Simulation
+                </Button>
+              </Col>
+            </Row>
           </form>
         </PageWrapper>
       </div>
