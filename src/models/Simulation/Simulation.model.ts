@@ -1,3 +1,5 @@
+import { AgentModel } from "../Agent/Agent.model";
+
 export enum SimulationStatus {
   SCHEDULED = 1,
   RUNNING = 2,
@@ -17,23 +19,67 @@ export const simulationStatusString = [
   "Error",
 ];
 
-export interface SimulationModel {
-  // created_datetime: "2021-02-24T11:55:15.000Z";
-  // end_datetime: null;
-  // finished_percentage: 0;
-  // id: 2;
-  // input_data_url: null;
-  // output_data_url: null;
-  // owner: 2;
-  // simulation_batch_id: null;
-  // start_datetime: null;
-  // status_simulation_id: 1;
+interface SubstrateModel {
+  id: string;
+  name: string;
+  diffCoeff: number;
+  decayRate: number;
+}
 
-  id: number;
-  status: SimulationStatus;
-  createdDatetime: Date;
+export interface AgentSubtrateAssociationModel {
+  id: string;
+  subtrate: SubstrateModel;
+  agent: AgentModel;
+  type: "release" | "uptake";
+  quantity: number;
+  saturation: number;
+  chemoAttr: number;
+}
+
+interface AgentAgentAssociationModel {
+  id: string;
+  agentId1: AgentModel;
+  agentId2: AgentModel;
+  bidingStrength: number;
+}
+
+export interface SimulationModel {
+  id?: number;
+  status?: SimulationStatus;
+  createdDatetime?: Date;
   endDatetime?: Date;
-  owner: number;
+  owner?: number;
   simulationBatchId?: number;
-  finishedPercentage: number;
+  finishedPercentage?: number;
+
+  title: string;
+  tags?: string[];
+  dimensions: {
+    resolution: number;
+    x: number;
+    y: number;
+    z?: number;
+  };
+  AgentSubtrateAssociation: AgentSubtrateAssociationModel[];
+  AgentAgentAssociation: AgentAgentAssociationModel[];
+  mechanics: {
+    value: number;
+    time: "ms" | "sec" | "min" | "hour" | "day";
+  };
+  cellCycle: {
+    value: number;
+    time: "ms" | "sec" | "min" | "hour" | "day";
+  };
+  snapShot: {
+    value: number;
+    time: "ms" | "sec" | "min" | "hour" | "day";
+  };
+  diffusion: {
+    value: number;
+    time: "ms" | "sec" | "min" | "hour" | "day";
+  };
+  maxTimeRun: {
+    value: number;
+    time: "ms" | "sec" | "min" | "hour" | "day";
+  };
 }

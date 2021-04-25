@@ -13,13 +13,13 @@ import SimulationsService from "../../services/Simulations/Simulations.service";
 
 interface ISimulationPageProps {}
 
-const simulationMock: SimulationModel = {
-  id: 1,
-  createdDatetime: new Date(),
-  finishedPercentage: 20,
-  status: SimulationStatus.RUNNING,
-  owner: 1,
-};
+// const simulationMock: SimulationModel = {
+//   id: 1,
+//   createdDatetime: new Date(),
+//   finishedPercentage: 20,
+//   status: SimulationStatus.RUNNING,
+//   owner: 1,
+// };
 const SimulationPage: React.FunctionComponent<ISimulationPageProps> = (
   props
 ) => {
